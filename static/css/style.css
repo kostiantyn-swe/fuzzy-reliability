@@ -1,0 +1,70 @@
+body { font-size: 0.875rem; background: #f8f9fa; }
+
+.nav-link-app {
+  font-size: 0.82rem; color: #6c757d; text-decoration: none;
+}
+.nav-link-app:hover { color: #0d6efd; text-decoration: underline; }
+.card { box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.mf-group select { font-size: 0.78rem; }
+.mf-group input  { font-size: 0.78rem; }
+.form-label-sm   { font-size: 0.78rem; color: #555; }
+.op-block        { background: #fff; }
+.preview-mini    { width: 100%; height: 55px; }
+
+/* Метрика якості аналітичного методу */
+.quality-info { padding: 7px 12px; border-radius: 4px; font-size: 0.85em; }
+.quality-good       { background:#d4edda; border-left:4px solid #28a745; color:#155724; }
+.quality-acceptable { background:#fff3cd; border-left:4px solid #ffc107; color:#856404; }
+.quality-poor       { background:#f8d7da; border-left:4px solid #dc3545; color:#721c24; }
+.method-comparison-toggle { padding: 4px 2px; }
+
+/* Підказки (tooltips) */
+.info-icon {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:16px; height:16px; background:#6c757d; color:#fff;
+  border-radius:50%; font-size:10px; font-weight:bold;
+  cursor:help; margin-left:4px; vertical-align:middle;
+}
+
+/* Сценарії */
+.scenarios-panel { margin-top: 1rem; }
+.scenario-item   { display:flex; align-items:center; gap:6px; padding:4px 0;
+                   border-bottom:1px solid #eee; font-size:0.82rem; }
+.scenario-item:last-child { border-bottom:none; }
+.scenario-meta   { flex:1; min-width:0; }
+.scenario-meta strong { display:block; white-space:nowrap; overflow:hidden;
+                        text-overflow:ellipsis; }
+.scenario-actions { display:flex; gap:4px; flex-shrink:0; }
+.empty-state     { color:#999; font-style:italic; list-style:none; padding:6px 0; }
+
+/* Модальне порівняння */
+.cmp-modal { position:fixed; inset:0; background:rgba(0,0,0,.5);
+             z-index:1050; display:none; overflow-y:auto; }
+.cmp-modal-content { background:#fff; margin:30px auto; width:92%;
+                     max-width:1200px; border-radius:8px;
+                     max-height:90vh; overflow-y:auto; }
+.cmp-modal-header  { display:flex; justify-content:space-between;
+                     align-items:center; padding:12px 18px;
+                     border-bottom:1px solid #ddd; }
+.cmp-modal-body    { padding:16px; display:grid;
+                     grid-template-columns:1fr 1fr; gap:16px; }
+.cmp-plot          { width:100%; height:300px; }
+.cmp-close         { background:none; border:none; font-size:22px; cursor:pointer; line-height:1; }
+@media(max-width:768px){ .cmp-modal-body{ grid-template-columns:1fr; } }
+
+/* Перемикач мови */
+.lang-switcher { display:flex; gap:4px; }
+.lang-btn {
+  padding:4px 10px; border:1px solid #ccc; background:white;
+  cursor:pointer; border-radius:4px; font-size:0.82rem;
+}
+.lang-btn.active { background:#0d6efd; color:white; border-color:#0d6efd; }
+.lang-btn:hover:not(.active) { background:#e9ecef; }
+
+/* Ілюстрація ТФС */
+.tfs-illustration {
+  margin:8px 0; text-align:center; padding:8px;
+  background:#f8f9fa; border-radius:4px;
+  min-height:60px; display:flex; align-items:center; justify-content:center;
+}
+.tfs-img-placeholder { color:#6c757d; font-size:0.9em; }

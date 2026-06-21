@@ -1,0 +1,181 @@
+{
+  "app_title": "Operator Reliability Assessment under Data Uncertainty",
+  "nav_home": "Home",
+  "nav_help": "Help",
+
+  "title_page": {
+    "main_heading": "Reliability Assessment of Operator Activity Algorithms under Data Uncertainty",
+    "subtitle": "Information Technology for Ergonomic Studies",
+    "description_p1": "A web implementation of an information technology that combines the functional-structural theory of ergatic systems (Hubinskyi school) with the apparatus of fuzzy sets. It enables evaluation of operator activity algorithm reliability indicators when input parameters (probabilities, operation durations) are specified as membership functions rather than crisp numbers.",
+    "description_p2": "Developed as part of master's thesis at Sumy State University, in collaboration with ergonomic projects of Penn State University.",
+    "btn_start": "Start working",
+    "btn_help": "User guide",
+    "footer_university": "SumDU — Sumy State University",
+    "footer_collaboration": "In collaboration with Penn State University"
+  },
+
+  "tfs_types": {
+    "RR":   "TFS-1: Sequential execution",
+    "RK":   "TFS-2: WO with control",
+    "RKR1": "TFS-3: WO with control and rework",
+    "RKR":  "TFS-4: Cyclic WCR",
+    "PAR":  "TFS-5: Parallel execution"
+  },
+
+  "form_labels": {
+    "tfs_type":              "TFS type",
+    "directive_time_html":   "Directive time T<sub>dir</sub>, s",
+    "ptimely_method_html":   "P̃<sub>timely</sub> calculation method",
+    "operations_header":     "Operation parameters",
+    "operation_label":       "WO",
+    "param_MT":              "M(T), s",
+    "param_DT":              "D(T)",
+    "mf_type":               "MF type",
+    "composer":              "Composer"
+  },
+
+  "operations": {
+    "work":    "Work operation",
+    "control": "Control operation",
+    "fixup":   "Fixup operation"
+  },
+
+  "buttons": {
+    "evaluate":       "Evaluate",
+    "evaluating":     "Evaluating…",
+    "load_example":   "Load example",
+    "load_from_file": "Load JSON",
+    "download_json":  "Download JSON",
+    "save_scenario":  "Save",
+    "compare_prefix": "Compare",
+    "clear_scenarios":"Clear my scenarios",
+    "add_op":         "+ Add WO",
+    "remove_op":      "✕"
+  },
+
+  "metrics_table": {
+    "heading":          "Summary metrics",
+    "header_indicator": "Indicator",
+    "header_centroid":  "Centroid",
+    "header_support":   "Support [min, max]",
+    "header_core":      "Core [min, max]",
+    "row_P":            "P̃ (correctness)",
+    "row_MT":           "M̃(T), s",
+    "row_DT":           "D̃(T)",
+    "row_Psv":          "P̃_timely(T_dir)"
+  },
+
+  "card_titles": {
+    "p":   "Error-free probability P̃",
+    "mt":  "Expected time M̃(T), s",
+    "dt":  "Time variance D̃(T)",
+    "psv": "P̃<sub>timely</sub>(T<sub>dir</sub>)"
+  },
+
+  "graph_titles": {
+    "P":             "Correctness P̃",
+    "MT":            "Expected time M̃(T), s",
+    "DT":            "Time variance D̃(T)",
+    "Psv":           "P̃_timely(T_dir)",
+    "control_curve": "possibility (control)"
+  },
+
+  "annotations": {
+    "t_garant":          "T_guarantee =",
+    "psv_at_dir_prefix": "P_timely(",
+    "show_comparison":   "Show methods comparison",
+    "psv_empty":         "Set directive time and click 'Evaluate'"
+  },
+
+  "scenarios_panel": {
+    "heading":           "Saved scenarios",
+    "name_placeholder":  "Scenario name",
+    "empty_state":       "No saved scenarios",
+    "delete_confirm":    "Delete scenario",
+    "clear_all_confirm": "Delete ALL your saved scenarios? This action cannot be undone.",
+    "comparison_heading":"Scenario comparison",
+    "ops_short":         "op."
+  },
+
+  "ptimely_methods": {
+    "auto_full":       "Auto (by MF type)",
+    "analytical_full": "Analytical (trimf / trapmf)",
+    "possibility_full":"Possibility (max μ_T)",
+    "integral_full":   "Integral (cumtrapz)",
+    "auto_hint":       "«Auto»: trimf/trapmf → analytical, gaussmf and others → possibility.",
+    "tooltip_html":    "<b>Auto:</b> trimf/trapmf → analytical, others → possibility.<br><b>Analytical:</b> piecewise formulas, exact for triangular MF.<br><b>Possibility:</b> max μ_T(t), t≤T_dir — universal.<br><b>Integral:</b> normalized cumtrapz."
+  },
+
+  "quality": {
+    "label_prefix":   "Approximation quality:",
+    "rmse_label":     "RMSE =",
+    "msg_good":       "Reliable",
+    "msg_acceptable": "Acceptable but with discrepancies",
+    "msg_poor":       "Recommend switching to possibility"
+  },
+
+  "validation": {
+    "header":                  "Check the data:",
+    "fields_empty":            "not all fields are filled",
+    "probability_range":       "values must be in [0, 1]",
+    "non_negative":            "values cannot be negative",
+    "trimf_order":             "trimf: a ≤ b ≤ c",
+    "trapmf_order":            "trapmf: a ≤ b ≤ c ≤ d",
+    "gauss_sigma":             "gaussmf: σ > 0",
+    "directive_time_negative": "Directive time cannot be negative"
+  },
+
+  "errors": {
+    "load_file_failed":    "File read error:",
+    "invalid_format":      "Invalid format. Expected JSON with tfs_type and operations fields.",
+    "show_results_confirm":"The file contains saved results. Display without re-evaluation?",
+    "empty_scenario_name": "Enter a scenario name",
+    "server_error":        "Server connection error:",
+    "generic_prefix":      "Error:"
+  },
+
+  "language_switcher": {
+    "uk": "Українська",
+    "en": "English"
+  },
+
+  "axes": {
+    "t_dir_label":   "T_dir, s",
+    "psv_label":     "P_timely",
+    "mu_label":      "μ",
+    "seconds_short": "s"
+  },
+
+  "tfs_illustration": {
+    "placeholder": "TFS illustration will be added later"
+  },
+
+  "par_composers": {
+    "label":    "Composer:",
+    "and_desc": "all completed",
+    "or_desc":  "at least one",
+    "xor_desc": "exactly one"
+  },
+
+  "help": {
+    "title":            "User guide",
+    "section_overview": "General overview",
+    "overview_text":    "The web application allows assessment of fuzzy reliability indicators of an operator's activity algorithm in the form of membership functions.",
+    "section_steps":    "Step-by-step instructions",
+    "step1": "Select the type of functional structure (TFS-1 to TFS-5) from the dropdown.",
+    "step2": "Enter parameters for working operations: for each fuzzy parameter select MF type (triangular, trapezoidal, Gaussian) and enter its parameters.",
+    "step3": "Set the directive time T_dir — the time within which the whole algorithm must be executed.",
+    "step4": "Select method for P̃_timely calculation (Auto recommended).",
+    "step5": "Click 'Evaluate' — you will get 4 plots of fuzzy reliability indicators.",
+    "section_scenarios":  "Saving scenarios",
+    "scenarios_text":     "The current parameter set can be saved as a scenario with a custom name. Saved scenarios are available in the right panel. Any saved scenario can be loaded back into the form.",
+    "scenarios_compare":  "To compare several algorithm variants: select 2-5 scenarios (checkboxes) and click 'Compare selected'.",
+    "section_export":     "Exporting results",
+    "export_text":        "The 'Download JSON' button saves the current form state as a file. This file can later be loaded back via 'Load JSON'.",
+    "section_methods":    "P̃_timely calculation methods",
+    "method_analytical":  "<strong>Analytical:</strong> piecewise formulas for triangular/trapezoidal MF. Didactically transparent but loses accuracy in fuzzy multiplication/division.",
+    "method_possibility": "<strong>Possibility:</strong> max μ_T(t) for t ≤ T_dir. Universal, works for all MF types.",
+    "method_integral":    "<strong>Integral:</strong> normalized cumulative integral of membership function. Gives smooth S-shaped curve (CDF-like).",
+    "method_auto":        "<strong>Auto:</strong> analytical for triangular/trapezoidal, possibility for the rest."
+  }
+}

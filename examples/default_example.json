@@ -1,0 +1,41 @@
+{
+  "tfs_type": "RR",
+  "directive_time": 45.0,
+  "operations": [
+    {"type": "R", "params": {
+      "B1": {"mf_type": "trimf", "params": [0.998, 0.999, 1.0]},
+      "MT": {"mf_type": "trimf", "params": [4.9, 5.1, 5.3]},
+      "DT": {"mf_type": "trimf", "params": [0.25, 0.3, 0.35]}
+    }},
+    {"type": "R", "params": {
+      "B1": {"mf_type": "trimf", "params": [0.997, 0.998, 0.999]},
+      "MT": {"mf_type": "trimf", "params": [2.8, 3.0, 3.2]},
+      "DT": {"mf_type": "trimf", "params": [0.35, 0.4, 0.45]}
+    }},
+    {"type": "R", "params": {
+      "B1": {"mf_type": "trimf", "params": [0.996, 0.997, 0.998]},
+      "MT": {"mf_type": "trimf", "params": [8.3, 8.5, 8.7]},
+      "DT": {"mf_type": "trimf", "params": [0.65, 0.7, 0.75]}
+    }},
+    {"type": "R", "params": {
+      "B1": {"mf_type": "trimf", "params": [0.994, 0.995, 0.996]},
+      "MT": {"mf_type": "trimf", "params": [1.6, 1.7, 1.8]},
+      "DT": {"mf_type": "trimf", "params": [0.08, 0.1, 0.12]}
+    }},
+    {"type": "R", "params": {
+      "B1": {"mf_type": "trimf", "params": [0.988, 0.989, 0.990]},
+      "MT": {"mf_type": "trimf", "params": [2.2, 2.3, 2.4]},
+      "DT": {"mf_type": "trimf", "params": [0.18, 0.2, 0.22]}
+    }},
+    {"type": "R", "params": {
+      "B1": {"mf_type": "trimf", "params": [0.998, 0.999, 1.0]},
+      "MT": {"mf_type": "trimf", "params": [9.8, 10.0, 10.2]},
+      "DT": {"mf_type": "trimf", "params": [1.05, 1.1, 1.15]}
+    }},
+    {"type": "R", "params": {
+      "B1": {"mf_type": "trimf", "params": [0.998, 0.999, 1.0]},
+      "MT": {"mf_type": "trimf", "params": [8.8, 9.0, 9.2]},
+      "DT": {"mf_type": "trimf", "params": [0.75, 0.8, 0.85]}
+    }}
+  ]
+}

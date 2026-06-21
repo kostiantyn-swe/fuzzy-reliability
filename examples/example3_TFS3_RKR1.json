@@ -1,0 +1,23 @@
+{
+  "tfs_type": "RKR1",
+  "directive_time": 13.0,
+  "ptimely_method": "auto",
+  "operations": [
+    {"type": "R", "params": {
+      "B1": {"mf_type": "trimf", "params": [0.85, 0.90, 0.95]},
+      "MT": {"mf_type": "trimf", "params": [4.5, 5.0, 5.5]},
+      "DT": {"mf_type": "trimf", "params": [0.3, 0.4, 0.5]}
+    }},
+    {"type": "K", "params": {
+      "K11": {"mf_type": "trimf", "params": [0.85, 0.90, 0.95]},
+      "K00": {"mf_type": "trimf", "params": [0.80, 0.85, 0.90]},
+      "MT":  {"mf_type": "trimf", "params": [3.5, 4.0, 4.5]},
+      "DT":  {"mf_type": "trimf", "params": [0.5, 0.6, 0.7]}
+    }},
+    {"type": "R2", "params": {
+      "B1": {"mf_type": "trimf", "params": [0.93, 0.95, 0.97]},
+      "MT": {"mf_type": "trimf", "params": [2.8, 3.0, 3.2]},
+      "DT": {"mf_type": "trimf", "params": [0.15, 0.2, 0.25]}
+    }}
+  ]
+}

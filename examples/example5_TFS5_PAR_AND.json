@@ -1,0 +1,23 @@
+{
+  "tfs_type": "PAR",
+  "directive_time": 9.0,
+  "ptimely_method": "auto",
+  "operations": [
+    {"composer": "AND"},
+    {"type": "R", "params": {
+      "B1": {"mf_type": "trimf", "params": [0.95, 0.97, 0.99]},
+      "MT": {"mf_type": "trimf", "params": [4.5, 5.0, 5.5]},
+      "DT": {"mf_type": "trimf", "params": [0.3, 0.4, 0.5]}
+    }},
+    {"type": "R", "params": {
+      "B1": {"mf_type": "trimf", "params": [0.93, 0.95, 0.97]},
+      "MT": {"mf_type": "trimf", "params": [6.5, 7.0, 7.5]},
+      "DT": {"mf_type": "trimf", "params": [0.4, 0.5, 0.6]}
+    }},
+    {"type": "R", "params": {
+      "B1": {"mf_type": "trimf", "params": [0.96, 0.98, 1.0]},
+      "MT": {"mf_type": "trimf", "params": [5.5, 6.0, 6.5]},
+      "DT": {"mf_type": "trimf", "params": [0.35, 0.45, 0.55]}
+    }}
+  ]
+}

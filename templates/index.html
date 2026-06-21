@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="uk" data-i18n-title="app_title">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Оцінювання надійності оператора</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<div class="container-fluid py-3">
+
+  <!-- Навігація -->
+  <nav class="d-flex align-items-center gap-3 mb-2">
+    <a href="/" class="nav-link-app" data-i18n="nav_home">На головну</a>
+    <a href="/help" class="nav-link-app" data-i18n="nav_help">Інструкція</a>
+  </nav>
+
+  <!-- Шапка -->
+  <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
+    <h5 class="mb-0 fw-bold" data-i18n="app_title">
+      Оцінювання надійності оператора в умовах нечіткості даних
+    </h5>
+    <div class="d-flex gap-2 align-items-center">
+      <button class="btn btn-outline-secondary btn-sm" id="btn-load-example"
+              data-i18n="buttons.load_example">Завантажити приклад</button>
+      <button class="btn btn-outline-secondary btn-sm" id="btn-load-from-file"
+              data-i18n="buttons.load_from_file">Завантажити JSON</button>
+      <input type="file" id="file-input-json" accept=".json" style="display:none">
+      <div class="lang-switcher">
+        <button data-lang="uk" class="lang-btn active">UK</button>
+        <button data-lang="en" class="lang-btn">EN</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3">
+
+    <!-- Ліва колонка: форма вводу -->
+    <div class="col-lg-5">
+
+      <!-- Тип ТФС -->
+      <div class="card mb-3">
+        <div class="card-body py-2">
+          <label class="form-label fw-semibold mb-1" data-i18n="form_labels.tfs_type">Тип ТФС</label>
+          <select class="form-select form-select-sm" id="tfs-type"></select>
+          <!-- Плейсхолдер ілюстрації ТФС -->
+          <div class="tfs-illustration" id="tfs-illustration">
+            <img id="tfs-img" src="" alt=""
+                 style="max-width:100%; max-height:200px;"
+                 onerror="this.style.display='none'; document.getElementById('tfs-img-placeholder').style.display='block';">
+            <div id="tfs-img-placeholder" class="tfs-img-placeholder" style="display:none">
+              <em data-i18n="tfs_illustration.placeholder">Ілюстрація ТФС буде додана пізніше</em>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Директивний час + метод P_св -->
+      <div class="card mb-3">
+        <div class="card-body py-2">
+          <label class="form-label fw-semibold mb-1"
+                 data-i18n-html="form_labels.directive_time_html">Директивний час T<sub>дир</sub>, с</label>
+          <input type="number" class="form-control form-control-sm mb-2" id="directive-time"
+                 value="45" min="0" step="0.1">
+          <label class="form-label fw-semibold mb-1">
+            <span data-i18n-html="form_labels.ptimely_method_html">Метод обчислення P̃<sub>св</sub></span>
+            <span class="info-icon" data-bs-toggle="tooltip" data-bs-html="true"
+                  data-i18n-title="ptimely_methods.tooltip_html"
+                  title="&lt;b&gt;Авто:&lt;/b&gt; trimf/trapmf → аналітичний, решта → можливісний.&lt;br&gt;&lt;b&gt;Аналітичний:&lt;/b&gt; кускові формули, точний для трикутних ФП.&lt;br&gt;&lt;b&gt;Можливісний:&lt;/b&gt; max μ_T(t), t≤T_дір — універсальний.&lt;br&gt;&lt;b&gt;Інтегральний:&lt;/b&gt; нормований cumtrapz.">ⓘ</span>
+          </label>
+          <select class="form-select form-select-sm" id="ptimely-method">
+            <option value="auto"       selected data-i18n="ptimely_methods.auto_full">Авто (за типом ФП часу)</option>
+            <option value="analytical"          data-i18n="ptimely_methods.analytical_full">Аналітичний (trimf / trapmf)</option>
+            <option value="possibility"         data-i18n="ptimely_methods.possibility_full">Можливісний (max&nbsp;μ_T)</option>
+            <option value="integral"            data-i18n="ptimely_methods.integral_full">Інтегральний (cumtrapz)</option>
+          </select>
+          <div class="form-text" data-i18n="ptimely_methods.auto_hint">
+            «Авто»: trimf/trapmf → аналітичний, gaussmf та інші → можливісний.
+          </div>
+        </div>
+      </div>
+
+      <!-- Операції -->
+      <div class="card mb-3">
+        <div class="card-header py-2 d-flex justify-content-between align-items-center">
+          <span class="fw-semibold" data-i18n="form_labels.operations_header">Параметри операцій</span>
+          <button class="btn btn-outline-primary btn-sm" id="btn-add-op"
+                  data-i18n="buttons.add_op"
+                  style="display:none">+ Додати РО</button>
+        </div>
+        <div class="card-body py-2" id="operations-container"></div>
+      </div>
+
+      <!-- Кнопки -->
+      <div class="d-flex gap-2">
+        <button class="btn btn-primary flex-grow-1" id="btn-evaluate"
+                data-i18n="buttons.evaluate">Обчислити</button>
+        <button class="btn btn-outline-success" id="btn-download" disabled
+                data-i18n="buttons.download_json">
+          Скачати JSON
+        </button>
+      </div>
+
+      <!-- Помилка -->
+      <div class="alert alert-danger mt-2 py-2 d-none" id="error-box"></div>
+
+      <!-- Збережені сценарії -->
+      <div class="card mt-3 scenarios-panel" id="scenarios-panel">
+        <div class="card-header py-2 fw-semibold d-flex justify-content-between align-items-center">
+          <span data-i18n="scenarios_panel.heading">Збережені сценарії</span>
+          <button id="btn-compare-scenarios" class="btn btn-info btn-sm" disabled>
+            <span data-i18n="buttons.compare_prefix">Порівняти</span>
+            (<span id="selected-count">0</span>/5)
+          </button>
+        </div>
+        <div class="card-body py-2">
+          <div class="d-flex gap-2 mb-2">
+            <input type="text" id="scenario-name"
+                   data-i18n="scenarios_panel.name_placeholder"
+                   placeholder="Ім'я сценарію" maxlength="64"
+                   class="form-control form-control-sm">
+            <button id="btn-save-scenario" class="btn btn-primary btn-sm text-nowrap"
+                    data-i18n="buttons.save_scenario">Зберегти</button>
+          </div>
+          <ul class="scenarios-list mb-0 ps-0" id="scenarios-list"></ul>
+          <div class="mt-2">
+            <button id="btn-clear-scenarios" class="btn btn-outline-danger btn-sm w-100"
+                    data-i18n="buttons.clear_scenarios">Очистити мої сценарії</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Права колонка: результати -->
+    <div class="col-lg-7" id="results-section" style="display:none">
+
+      <!-- Метрики -->
+      <div class="card mb-3">
+        <div class="card-header py-2 fw-semibold"
+             data-i18n="metrics_table.heading">Зведені метрики</div>
+        <div class="card-body py-2">
+          <table class="table table-sm table-bordered mb-0" id="metrics-table">
+            <thead class="table-light">
+              <tr>
+                <th data-i18n="metrics_table.header_indicator">Показник</th>
+                <th data-i18n="metrics_table.header_centroid">Центроїд</th>
+                <th data-i18n="metrics_table.header_support">Носій [min, max]</th>
+                <th data-i18n="metrics_table.header_core">Ядро [min, max]</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Графіки -->
+      <div class="row g-2">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header py-1 small fw-semibold"
+                 data-i18n="card_titles.p">
+              Безпомилковість P̃
+            </div>
+            <div class="card-body p-1" id="plot-P" style="height:220px"></div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header py-1 small fw-semibold"
+                 data-i18n="card_titles.mt">
+              Мат. сподівання часу M̃(T), с
+            </div>
+            <div class="card-body p-1" id="plot-MT" style="height:220px"></div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header py-1 small fw-semibold"
+                 data-i18n="card_titles.dt">
+              Дисперсія часу D̃(T)
+            </div>
+            <div class="card-body p-1" id="plot-DT" style="height:220px"></div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header py-1 small fw-semibold d-flex justify-content-between align-items-center">
+              <span data-i18n-html="card_titles.psv">P̃<sub>св</sub>(T<sub>дир</sub>)</span>
+              <span id="psv-method-badge" class="badge bg-secondary" style="display:none !important"></span>
+            </div>
+            <div class="card-body p-1" id="plot-psv" style="height:380px">
+            </div>
+          </div>
+          <!-- Метрика якості (тільки для analytical) -->
+          <div id="quality-tooltip" style="display:none" class="mt-2"></div>
+          <!-- Перемикач порівняння методів -->
+          <div class="method-comparison-toggle" id="comparison-toggle-wrap" style="display:none">
+            <label class="d-flex align-items-center gap-2 mb-0">
+              <input type="checkbox" id="show-method-comparison">
+              <span class="small" data-i18n="annotations.show_comparison">Показати possibility-криву (контроль)</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Модальне вікно порівняння сценаріїв -->
+<div id="comparison-modal" class="cmp-modal">
+  <div class="cmp-modal-content">
+    <div class="cmp-modal-header">
+      <h5 class="mb-0" data-i18n="scenarios_panel.comparison_heading">Порівняння сценаріїв</h5>
+      <button class="cmp-close" id="btn-close-cmp">&times;</button>
+    </div>
+    <div class="cmp-modal-body">
+      <div id="cmp-plot-P"   class="cmp-plot"></div>
+      <div id="cmp-plot-MT"  class="cmp-plot"></div>
+      <div id="cmp-plot-DT"  class="cmp-plot"></div>
+      <div id="cmp-plot-Psv" class="cmp-plot"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Шаблон однієї операції (прихований) -->
+<template id="tmpl-op-rr">
+  <div class="op-block border rounded p-2 mb-2">
+    <div class="d-flex justify-content-between align-items-center mb-1">
+      <span class="fw-semibold small op-title"></span>
+      <button class="btn btn-outline-danger btn-sm py-0 btn-remove-op"
+              style="display:none; line-height:1.2">✕</button>
+    </div>
+    <div class="row g-1">
+      <div class="col-4">
+        <label class="form-label form-label-sm mb-0">B<sub>1</sub></label>
+        <div class="mf-group" data-param="B1"></div>
+      </div>
+      <div class="col-4">
+        <label class="form-label form-label-sm mb-0">M(T), с</label>
+        <div class="mf-group" data-param="MT"></div>
+      </div>
+      <div class="col-4">
+        <label class="form-label form-label-sm mb-0">D(T)</label>
+        <div class="mf-group" data-param="DT"></div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template id="tmpl-op-k">
+  <div class="op-block border rounded p-2 mb-2">
+    <div class="d-flex justify-content-between align-items-center mb-1">
+      <span class="fw-semibold small op-title"></span>
+    </div>
+    <div class="row g-1">
+      <div class="col-3">
+        <label class="form-label form-label-sm mb-0">K<sub>11</sub></label>
+        <div class="mf-group" data-param="K11"></div>
+      </div>
+      <div class="col-3">
+        <label class="form-label form-label-sm mb-0">K<sub>00</sub></label>
+        <div class="mf-group" data-param="K00"></div>
+      </div>
+      <div class="col-3">
+        <label class="form-label form-label-sm mb-0">M(T), с</label>
+        <div class="mf-group" data-param="MT"></div>
+      </div>
+      <div class="col-3">
+        <label class="form-label form-label-sm mb-0">D(T)</label>
+        <div class="mf-group" data-param="DT"></div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+<script src="/static/js/i18n.js?v=3"></script>
+<script src="/static/js/app.js?v=3"></script>
+</body>
+</html>
